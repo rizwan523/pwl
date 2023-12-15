@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookshelves', function (Blueprint $table) {
+        Schema::create('bookshelfs', function (Blueprint $table) {
             $table->id();
             $table->string('code', 15);
             $table->string('name');
@@ -21,10 +21,9 @@ return new class extends Migration
         Schema::table('books', function(Blueprint $table){
             $table->unsignedBigInteger('bookshelf_id')->after('quantity');
             $table->foreign('bookshelf_id')
-                  ->references('id')
                   ->on('bookshelves')
                   ->onUpdate('cascade')
-                  ->onDelete('casecade');  
+                  ->onDelete('cascade');
         });
     }
 
@@ -37,6 +36,6 @@ return new class extends Migration
             $table->dropForeign('books_bookshelf_id_foreign');
             $table->dropColumn('bookshelf_id');
         });
-        Schema::dropIfExists('bookshelves');
+        Schema::dropIfExists('bookshelfs');
     }
 };
